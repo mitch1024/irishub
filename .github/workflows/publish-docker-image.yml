@@ -6,7 +6,7 @@ on:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+"     # Push events to matching v*, i.e. v1.0, v20.15.10
       - "v[0-9]+.[0-9]+.[0-9]+-rc*" # Push events to matching v*, i.e. v1.0-rc1, v20.15.10-rc5
-
+  
 jobs:
   setup-build-publish:
     name: Setup, Build and Publish
@@ -18,7 +18,7 @@ jobs:
       run: echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV    
     - name: Build and Push Docker Image
       run: |
-        echo "Version: ${{ github.ref == 'refs/heads/master' && github.sha || env.VERSION }}"
+        echo "Version: ${{ env.VERSION }}"
                 
   deploy:
     name: Deploy
@@ -28,4 +28,4 @@ jobs:
     steps:
     - name: Deploy
       run: |
-        echo "Version: ${{ github.ref == 'refs/heads/master' && github.sha || env.VERSION }}"
+        echo "Version: ${{ env.VERSION }}"
