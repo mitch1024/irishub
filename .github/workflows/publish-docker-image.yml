@@ -18,5 +18,5 @@ jobs:
       run: echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV    
     - name: Build and Push Docker Image
       run: |
-        echo "Version: ${{ github.ref == 'refs/heads/stage' && github.sha || env.VERSION }}"
+        echo "Version: ${{ github.ref == 'refs/heads/master' && github.sha || env.VERSION }}"
                 
