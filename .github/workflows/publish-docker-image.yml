@@ -14,10 +14,9 @@ jobs:
     environment: production
 
     steps:
+    - name: Get Tag ENV
+      run: echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV    
     - name: Build and Push Docker Image
       run: |
-        echo $GITHUB_REF_NAME
-        echo $GITHUB_REF
-        echo $GITHUB_SHA
-        echo "Environment: ${{ github.ref == 'refs/heads/stage' && GITHUB_SHA || GITHUB_REF_NAME }}"
+        echo "Version: ${{ github.ref == 'refs/heads/stage' && github.sha || env.VERSION }}"
                 
