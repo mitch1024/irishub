@@ -14,6 +14,20 @@ jobs:
     environment: production
 
     steps:
+    - name: Extract version or commit hash
+      id: extract
+      run: |
+        if [ -n "${GITHUB_REF##*refs/tags/*}" ]; then
+          # 提取 commit hash
+          echo "version=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        else
+          # 提取 tag 版本号
+          echo "version=${GITHUB_REF##*/}" >> $GITHUB_ENV
+        fi      
     - name: Build and Push Docker Image
       run: |
-        echo $env.GITHUB_REF_NAME
+        echo $GITHUB_REF_NAME
+        echo $GITHUB_REF
+        echo $GITHUB_SHA
+        echo "Version or Commit Hash: ${{ env.version }}"
+                
