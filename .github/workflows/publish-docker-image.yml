@@ -16,4 +16,4 @@ jobs:
     steps:
     - name: Build and Push Docker Image
       run: |
-        echo ${{ github.ref == 'refs/tags/*' && github.ref || github.sha }}
+        echo $env.GITHUB_REF_NAME
